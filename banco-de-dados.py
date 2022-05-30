@@ -34,7 +34,7 @@ class SQliteDBConnector:
         try:
             self.conn.close()
         except:
-            prit("Falha ao desconectar")
+            print("Falha ao desconectar")
 
 def listDB():
     conn = sqlite3.connect('database.db')
