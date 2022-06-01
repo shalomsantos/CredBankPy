@@ -284,36 +284,36 @@ class ConexaoDB:
 		print("TODO: Alterar login")
 
 # === TESTE TESTE TESTE ===
-banco = ConexaoDB("test.db")
+#banco = ConexaoDB("test.db")
 
-cadastro_adm = {
-		'cpf'      : '123.456.789-01',
-		'nome'     : 'Admin da Coisa Toda',
-		'datanasc' : '01-01-1970',
-		'email'    : 'admin@credbankpy.com',
-		'telefone' : '+5585987654321',
-		'usuario'  : 'admin',
-		'senha'    : 'password' }
+#cadastro_adm = {
+#		'cpf'      : '123.456.789-01',
+#		'nome'     : 'Admin da Coisa Toda',
+#		'datanasc' : '01-01-1970',
+#		'email'    : 'admin@credbankpy.com',
+#		'telefone' : '+5585987654321',
+#		'usuario'  : 'admin',
+#		'senha'    : 'password' }
 
-try:
-	# teste com dict
-	a = banco.criar_usuario(**cadastro_adm)
+#try:
+#	# teste com dict
+#	a = banco.criar_usuario(**cadastro_adm)
+#
+#	# teste normal
+#	b = banco.criar_usuario(cpf='000.000.000-00', nome='Usuario', datanasc='01-10-1990', email='usuario@gmail.com', telefone='+5585900000001', usuario='user', senha='teste')
+#	c = banco.criar_usuario(cpf='11122233344', nome='Usuario2', datanasc='01-10-1992', email='usuari2@gmail.com', telefone='+5585900000002', usuario='user2', senha='teste2')
+##	d = banco.criar_usuario(cpf='11122233344', nome='Usuario3', datanasc='01-10-1991', email='usuari3@gmail.com', telefone='+5585900000003', usuario='user3', senha='teste3')
+#except Exception as e:
+#	print(f"Erro: {e}")
+#	pass
 
-	# teste normal
-	b = banco.criar_usuario(cpf='000.000.000-00', nome='Usuario', datanasc='01-10-1990', email='usuario@gmail.com', telefone='+5585900000001', usuario='user', senha='teste')
-	c = banco.criar_usuario(cpf='11122233344', nome='Usuario2', datanasc='01-10-1992', email='usuari2@gmail.com', telefone='+5585900000002', usuario='user2', senha='teste2')
-#	d = banco.criar_usuario(cpf='11122233344', nome='Usuario3', datanasc='01-10-1991', email='usuari3@gmail.com', telefone='+5585900000003', usuario='user3', senha='teste3')
-except Exception as e:
-	print(f"Erro: {e}")
-	pass
+#print("Busca:", banco.busca_usuario_cpf("111.222.333-44"))
+#print("Busca:", banco.busca_usuario_cpf("00000000000"))
 
-print("Busca:", banco.busca_usuario_cpf("111.222.333-44"))
-print("Busca:", banco.busca_usuario_cpf("00000000000"))
+#print(banco.valida_login('admin', 'password'))
+#print(banco.valida_login('user',  'errada'))
+#print(banco.valida_login('user',  'teste'))
 
-print(banco.valida_login('admin', 'password'))
-print(banco.valida_login('user',  'errada'))
-print(banco.valida_login('user',  'teste'))
-
-print(banco.consulta_dados_usuario(1))
+#print(banco.consulta_dados_usuario(1))
 
 
