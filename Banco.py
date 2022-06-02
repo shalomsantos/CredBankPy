@@ -286,11 +286,23 @@ class ConexaoDB:
 
 	# Modifica os dados de autenticacao do usuario
 	def altera_login(self, user_id, username, password):
-		print("TODO: Alterar login")
+		c = self.conn.cursor()
+		try:
+			c.execute("BEGIN TRANSACTION;")
+			e.execute(f"UPDATE logins SET username='{username}', password='{password}' WHERE id={user_id};")
+			c.execute("COMMIT;")
+			return True
+
+		except Exception as e:
+			c.execute("ROLLBACK;")
+			print(f"altera_login erro: {e}")
+			pass
+
+		return False
 
 # === TESTE TESTE TESTE ===
 #banco = ConexaoDB("test.db")
-
+#
 #cadastro_adm = {
 #		'cpf'      : '123.456.789-01',
 #		'nome'     : 'Admin da Coisa Toda',
@@ -299,7 +311,7 @@ class ConexaoDB:
 #		'telefone' : '+5585987654321',
 #		'usuario'  : 'admin',
 #		'senha'    : 'password' }
-
+#
 #try:
 #	# teste com dict
 #	a = banco.criar_usuario(**cadastro_adm)
@@ -311,12 +323,15 @@ class ConexaoDB:
 #except Exception as e:
 #	print(f"Erro: {e}")
 #	pass
-
+#
 #print("Busca:", banco.busca_usuario_cpf("111.222.333-44"))
 #print("Busca:", banco.busca_usuario_cpf("00000000000"))
-
+#
 #print(banco.valida_login('admin', 'password'))
 #print(banco.valida_login('user',  'errada'))
 #print(banco.valida_login('user',  'teste'))
-
+#
 #print(banco.consulta_dados_usuario(1))
+
+
+
