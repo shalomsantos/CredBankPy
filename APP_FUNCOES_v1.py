@@ -19,23 +19,7 @@ class Conta:
         else:
             print('Saldo insuficiente.')
         
-    def menu(self):
-        print('-' * 30)
-        print(f'     MENU')
-        print('-' * 30)
-        print('Opções:')
-        print('1 - Extrato')
-        print('2 - Depósito')
-        print('3 - Saque')
-        print('4 - Sair')
-        opcao = input('Digite a opção desejada: ')
-        if opcao == '1':
-            self.extrato()
-        elif opcao == '2':
-            valor = float(input('Digite o valor a ser depositado: '))
-            self.deposito(valor)
-        elif opcao == '4':
-            exit()
+    
 
     def extrato(self, ultimo = 0):
         print()
@@ -59,6 +43,24 @@ class Conta:
             exit()
         else:
             self.menu()
+    
+    def menu(self):
+        print('-' * 30)
+        print(f'     MENU')
+        print('-' * 30)
+        print('Opções:')
+        print('1 - Extrato')
+        print('2 - Depósito')
+        print('3 - Saque')
+        print('4 - Sair')
+        opcao = input('Digite a opção desejada: ')
+        if opcao == '1':
+            self.extrato()
+        elif opcao == '2':
+            valor = float(input('Digite o valor a ser depositado: '))
+            self.deposito(valor)
+        elif opcao == '4':
+            exit()
 
 pessoa = Conta()
 

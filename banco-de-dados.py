@@ -1,3 +1,4 @@
+
 import os
 import time
 import sqlite3
@@ -315,5 +316,3 @@ class ConexaoDB:
 #print(banco.valida_login('user',  'teste'))
 
 #print(banco.consulta_dados_usuario(1))
-
-
