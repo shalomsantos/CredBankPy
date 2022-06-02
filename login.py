@@ -1,7 +1,7 @@
+from email import message
 from tkinter import *
-from tkinter import Tk, ttk
+from tkinter import Tk
 from tkinter import messagebox
-from turtle import heading
 from Banco import ConexaoDB
 
 # cores -----------------------------
@@ -15,18 +15,17 @@ letra = "#403d3d"
 window = Tk()
 window.title("CredBanckPy")
 window.iconbitmap('./icons/Icone-menu.ico')
-window.geometry("310x280")
+window.state('zoomed')
+# window.geometry("310x280")
 # window.eval('tk::PlaceWindow . center')
 window.resizable(False, False)
 
 window.configure(background=branco)
 #===Abrindo banco===
 banco = ConexaoDB("test.db")
-usuario=''
-senha=''
 
 def windowCadastro():
-    window.geometry("700x500")
+    #window.geometry("700x500")
     topo_frame = Frame(window, width=310, height=50, bg=branco, relief='flat')
     topo_frame.grid(row=0, column=0, pady=1, padx=0, sticky=NSEW)
 
@@ -137,21 +136,21 @@ def Cadastro():
     windowCadastro()
 
 def Principal():
-    for widget in topo_frame.winfo_children():
-        widget.destroy()
-    for widget in meio_frame.winfo_children():
-        widget.destroy()
-
+    usuario = in_nome.get()
+    senha = in_Senha.get()
     id_usuario = banco.valida_login(usuario, senha)
 
     if id_usuario == None:
         messagebox.showinfo("Usuário inexistente!", f"Usuário ou Senha incorreto! para: {usuario} pass: {senha}")
         Login()
-        return
+    else:
+        #for widget in topo_frame.winfo_children():
+        #widget.destroy()
+        #for widget in meio_frame.winfo_children():
+        #widget.destroy()
+        #window.destroy()
+        windowPrincipal()
 
-    windowPrincipal()
-
-#============================  LOGIN  ===========================================
 # Dividindo janela --------------------
 topo_frame = Frame(window, width=310, height=50, bg=branco, relief='flat')
 topo_frame.grid(row=0, column=0, pady=1, padx=0, sticky=NSEW)
@@ -170,13 +169,13 @@ l_linha.place(x=10, y=48)
 l_nome = Label(meio_frame, text='Usuário: *', anchor=NW, font=('ivy 10'), bg=branco, fg=letra)
 l_nome.place(x=10, y=20)
 
-in_nome = Entry(meio_frame, width=25, textvariable=usuario, justify='left', font=("", 15), highlightthickness=1, relief='solid')
+in_nome = Entry(meio_frame, width=25, justify='left', font=("", 15), highlightthickness=1, relief='solid')
 in_nome.place(x=10, y=45)
 
 l_Senha = Label(meio_frame, text='Senha: *', anchor=NW, font=('ivy 10'), bg=branco, fg=letra)
 l_Senha.place(x=10, y=90)
 
-in_Senha = Entry(meio_frame, width=25, textvariable=senha, justify='left', show='*', font=("", 15), highlightthickness=1, relief='solid')
+in_Senha = Entry(meio_frame, width=25, justify='left', show='*', font=("", 15), highlightthickness=1, relief='solid')
 in_Senha.place(x=10, y=115)
 
 b_Entrar = Button(meio_frame, width=15, height=1, command=Principal, text='Entrar', font=("Ivy 8 bold"), bg=verde, fg=letra, relief=RAISED, overrelief=RIDGE)

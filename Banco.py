@@ -272,11 +272,15 @@ class ConexaoDB:
 	# Retorna ID do usuario caso login/senha estejam corretos
 	def valida_login(self, user, passw):
 		# TODO: SQL injection possivel aqui :^)
+		print(f"valida_login -> user: {user}, pass: {passw}")
+
 		c = self.conn.execute(f"SELECT id_usuario_fk FROM logins WHERE username = '{user}' AND password = '{passw}';")
 		ids = c.fetchall()
 
 		if(len(ids) == 0):
 			return None
+
+		print(ids)
 
 		return int(ids[0][0])
 
