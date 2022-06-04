@@ -5,7 +5,7 @@ def Principal():
     def voltar():
         principalWindow.destroy()
         import TelaInicial
-
+    
     #  cores -----------------------------
     preta = "#f0f3f5"
     branco = "#ffffff"
@@ -25,6 +25,7 @@ def Principal():
 
     meio_frame = Frame(principalWindow, width=600, height=250, bg=branco, relief='flat')
     meio_frame.grid(row=1, column=0, pady=1, padx=0, sticky=NSEW)
+
     # configurando frame de cima da tela ----------
     l_nome = Label(topo_frame, text='Seja bem vindo!', anchor=NE, font=('System 25'), bg=branco, fg=cinza)
     l_nome.place(x=5, y=5)
