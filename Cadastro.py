@@ -24,9 +24,6 @@ def Cadastro():
     l_nome = Label(topo_frame, text='Cadastro', anchor=NE, font=('System 25'), bg=branco, fg=cinza)
     l_nome.place(x=5, y=5)
 
-    b_voltar = Button(topo_frame, width=5, height=1, text='Voltar', font=("System 8 bold"), bg=cinza, fg=branco, relief=RAISED, overrelief=RIDGE)
-    b_voltar.place(x=520, y=20)
-
     l_linha = Label(topo_frame, text='', width=31, anchor=NW, font=('System'), bg=cinza, fg=cinza)
     l_linha.place(x=10, y=48)
 

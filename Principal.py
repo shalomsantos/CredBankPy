@@ -1,7 +1,13 @@
 from tkinter import *
 
 def Principal():
-    # cores -----------------------------
+
+    def voltar():
+        principalWindow.destroy()
+        from TelaInicial import windowLogin
+        windowLogin()
+
+    #  cores -----------------------------
     preta = "#f0f3f5"
     branco = "#ffffff"
     cinza = "#787878"
@@ -24,7 +30,7 @@ def Principal():
     l_nome = Label(topo_frame, text='Seja bem vindo!', anchor=NE, font=('System 25'), bg=branco, fg=cinza)
     l_nome.place(x=5, y=5)
 
-    b_voltar = Button(topo_frame, width=5, height=1, text='Voltar', font=("System 8 bold"), bg=cinza, fg=branco, relief=RAISED, overrelief=RIDGE)
+    b_voltar = Button(topo_frame, width=5, command=voltar, height=1, text='Voltar', font=("System 8 bold"), bg=cinza, fg=branco, relief=RAISED, overrelief=RIDGE)
     b_voltar.place(x=520, y=20)
 
     l_linha = Label(topo_frame, text='', width=61, anchor=NW, font=('System'), bg=cinza, fg=cinza)
