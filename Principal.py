@@ -1,20 +1,18 @@
 from tkinter import *
-from tkinter import messagebox
-
-from TelaInicial import *
 
 def Principal():
-    principalWindow = Tk()
     # cores -----------------------------
     preta = "#f0f3f5"
     branco = "#ffffff"
     cinza = "#787878"
     valor = "#38576b"
 
+    principalWindow = Tk()
     principalWindow.title("CredBanckPy")
     principalWindow.iconbitmap('./icons/Icone-menu.ico')
     principalWindow.geometry("600x300")
     principalWindow.configure(background=branco)
+    principalWindow.focus_force()
 
     # --- DIVIDINDO TELA ---
     topo_frame = Frame(principalWindow, width=600, height=50, bg=branco, relief='flat')

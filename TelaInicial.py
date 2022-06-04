@@ -1,38 +1,33 @@
 from tkinter import *
 from tkinter import Tk
 from tkinter import messagebox
+
 from Banco import ConexaoDB
 
-import Principal
-import Cadastro
-
-# --- BRANCO DE DADOS ---
 banco = ConexaoDB("test.db")
-#from Cadastro import *
 
-def chamaCadastro():
-    telaInicialWindow.destroy()
-    Cadastro.Cadastro()
+import Principal
 
 def logar():
     usuario = in_nome.get()
     senha = in_Senha.get()
-
     id_usuario = banco.valida_login(usuario, senha)
 
     if id_usuario == None:
         messagebox.showinfo("Usuário inexistente!", f"Usuário ou Senha incorreto! para: {usuario} pass: {senha}")
     else:
         telaInicialWindow.destroy()
+        messagebox.showinfo("Parabéns", f"Usuário {usuario} Logado com sucesso!!!!")
         Principal.Principal()
-        
+
 # cores -----------------
 preta = "#f0f3f5"
 branco = "#ffffff"
 cinza = "#787878"
 valor = "#38576b"
+
 # Criando janela --------------------
-telaInicialWindow = Tk()
+telaInicialWindow = Tk()   
 telaInicialWindow.title("CredBanckPy")
 telaInicialWindow.iconbitmap('./icons/Icone-menu.ico')
 telaInicialWindow.geometry("600x300")
@@ -71,7 +66,7 @@ in_Senha.place(x=10, y=115)
 b_Entrar = Button(meio_frame, width=15, height=1, command=logar, text='Entrar', font=("System 8 bold"), bg=cinza, fg=branco, relief=RAISED, overrelief=RIDGE)
 b_Entrar.place(x=10, y=170)
 
-b_cadastrar = Button(meio_frame, width=15, height=1,command=chamaCadastro, text='Cadastrar', font=("System 8 bold"), bg=cinza, fg=branco, relief=RAISED, overrelief=RIDGE)
+b_cadastrar = Button(meio_frame, width=15, height=1, text='Cadastrar', font=("System 8 bold"), bg=cinza, fg=branco, relief=RAISED, overrelief=RIDGE)
 b_cadastrar.place(x=175, y=170)
     
 telaInicialWindow.mainloop()

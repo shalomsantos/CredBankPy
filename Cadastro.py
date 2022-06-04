@@ -1,17 +1,14 @@
 from tkinter import *
 from tkinter import Tk
-from tkinter import messagebox
-
-import TelaInicial
 
 def Cadastro():
-    cadastroWindow = Tk()
     # cores -----------------------------
     preta = "#f0f3f5"
     branco = "#ffffff"
     cinza = "#787878"
     valor = "#38576b"
 
+    cadastroWindow = Tk()
     cadastroWindow.title("CredBanckPy")
     cadastroWindow.iconbitmap('./icons/Icone-menu.ico')
     cadastroWindow.geometry("600x300")
