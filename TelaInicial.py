@@ -35,18 +35,21 @@ def windowLogin():
     telaInicialWindow = Tk()   
     telaInicialWindow.title("CredBanckPy")
     telaInicialWindow.iconbitmap('./icons/Icone-menu.ico')
-    telaInicialWindow.geometry("600x300")
+    telaInicialWindow.geometry("610x300")
     telaInicialWindow.configure(background=branco)
     # telaInicialWindow.resizable(False, False)
     # telaInicialWindow.eval('tk::PlacetelaInicialWindow . center')
     # telaInicialWindow.state('zoomed')
 
     # --- DIVIDINDO TELA ---
-    topo_frame = Frame(telaInicialWindow, width=600, height=50, bg=branco, relief='flat')
+    topo_frame = Frame(telaInicialWindow, width=300, height=50, bg=branco, relief='flat')
     topo_frame.grid(row=0, column=0, pady=1, padx=0, sticky=NSEW)
 
-    meio_frame = Frame(telaInicialWindow, width=600, height=250, bg=branco, relief='flat')
+    meio_frame = Frame(telaInicialWindow, width=300, height=250, bg=branco, relief='flat')
     meio_frame.grid(row=1, column=0, pady=1, padx=0, sticky=NSEW)
+
+    lateral_frame = Frame(telaInicialWindow, width=300, height=256, bg=branco, relief='flat')
+    lateral_frame.grid(row=1, column=1, pady=1, padx=0, sticky=NSEW)
 
     # configurando frame de cima da tela ----------
     l_nome = Label(topo_frame, text='Login', anchor=NE, font=('System 25'), bg=branco, fg=cinza)
@@ -54,6 +57,9 @@ def windowLogin():
 
     l_linha = Label(topo_frame, text='', width=31, anchor=NW, font=('System'), bg=cinza, fg=cinza)
     l_linha.place(x=10, y=48)
+
+    img = PhotoImage(file="icons/bank.png")
+    Label(lateral_frame, image=img, bg=branco).place(x=25, y=0)
 
     # configurando frame do meio datela ----------
     l_nome = Label(meio_frame, text='Usuário: *', anchor=NW, font=('System 10'), bg=branco, fg=cinza)

@@ -4,8 +4,7 @@ def Principal():
 
     def voltar():
         principalWindow.destroy()
-        from TelaInicial import windowLogin
-        windowLogin()
+        import TelaInicial
 
     #  cores -----------------------------
     preta = "#f0f3f5"
