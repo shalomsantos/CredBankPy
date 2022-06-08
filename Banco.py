@@ -207,7 +207,7 @@ class ConexaoDB:
 		# Printa os nomes das colunas
 		print(self.conn.execute("PRAGMA table_info(usuarios);").fetchall())
 
-#		c = self.conn.execute(f"SELECT c.* FROM usuarios u INNER JOIN cadastro c ON u.id=c.id_fk WHERE id={int(user_id)};")
+		#c = self.conn.execute(f"SELECT c.* FROM usuarios u INNER JOIN cadastro c ON u.id=c.id_fk WHERE id={int(user_id)};")
 		c = self.conn.execute(f"SELECT * FROM usuarios WHERE id={int(user_id)};")
 		self.conn.commit()
 		rows = c.fetchall()
@@ -332,6 +332,3 @@ class ConexaoDB:
 #print(banco.valida_login('user',  'teste'))
 #
 #print(banco.consulta_dados_usuario(1))
-
-
-

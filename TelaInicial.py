@@ -44,7 +44,7 @@ def windowLogin():
     # --- DIVIDINDO TELA ---
     topo_frame = Frame(telaInicialWindow, width=300, height=50, bg=branco, relief='flat')
     topo_frame.grid(row=0, column=0, pady=1, padx=0, sticky=NSEW)
-
+    
     meio_frame = Frame(telaInicialWindow, width=300, height=250, bg=branco, relief='flat')
     meio_frame.grid(row=1, column=0, pady=1, padx=0, sticky=NSEW)
 
@@ -55,7 +55,7 @@ def windowLogin():
     l_nome = Label(topo_frame, text='Login', anchor=NE, font=('System 25'), bg=branco, fg=cinza)
     l_nome.place(x=5, y=5)
 
-    l_linha = Label(topo_frame, text='', width=31, anchor=NW, font=('System'), bg=cinza, fg=cinza)
+    l_linha = Label(topo_frame, text='', width=17, anchor=NW, font=('System'), bg=cinza, fg=cinza)
     l_linha.place(x=10, y=48)
 
     img = PhotoImage(file="icons/bank.png")
