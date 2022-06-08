@@ -5,7 +5,7 @@ def Principal():
     def voltar():
         principalWindow.destroy()
         import TelaInicial
-    
+
     #  cores -----------------------------
     preta = "#f0f3f5"
     branco = "#ffffff"

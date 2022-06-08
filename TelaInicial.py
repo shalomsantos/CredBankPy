@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import Tk
 from tkinter import messagebox
 from Banco import ConexaoDB
+
 import Cadastro
 import Principal
 
