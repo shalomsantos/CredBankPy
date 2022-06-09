@@ -92,10 +92,12 @@ class ConexaoDB:
 			c.execute('''CREATE TABLE logins (
 		                  id_login INTEGER PRIMARY KEY AUTOINCREMENT,
 		                  id_usuario_fk INTEGER NOT NULL,
+			              id_conta_fk INTEGER NOT NULL,
 		                  username TEXT UNIQUE NOT NULL, 
 		                  password TEXT,
 		                  status INTEGER,
-		                  FOREIGN KEY(id_usuario_fk) REFERENCES usuarios(id));''')
+		                  FOREIGN KEY(id_usuario_fk) REFERENCES usuarios(id),
+			              FOREIGN KEY(id_conta_fk) REFERENCES contas(numconta));''')
 
 			# tabela conta
 			# numconta (PK) -> 00000-0
@@ -104,7 +106,7 @@ class ConexaoDB:
 			# timestamp     -> data/hora da ultima atualizacao de balanco (unix time)
 			# tipo          -> tipo de conta (ENUM)
 			c.execute('''CREATE TABLE contas (
-		                  numconta INT PRIMARY KEY,
+		                  numconta INT PRIMARY KEY AUTOINCREMENT,
 		                  id_usuario_fk INT,
 		                  balanco REAL,
 		                  timestamp INT,
@@ -205,7 +207,7 @@ class ConexaoDB:
 	# retorna cadastro do usuario a partir do ID do usuario
 	def consulta_dados_usuario(self, user_id):
 		# Printa os nomes das colunas
-		print(self.conn.execute("PRAGMA table_info(usuarios);").fetchall())
+		#print(self.conn.execute("PRAGMA table_info(usuarios);").fetchall())
 
 		#c = self.conn.execute(f"SELECT c.* FROM usuarios u INNER JOIN cadastro c ON u.id=c.id_fk WHERE id={int(user_id)};")
 		c = self.conn.execute(f"SELECT * FROM usuarios WHERE id={int(user_id)};")
@@ -255,8 +257,13 @@ class ConexaoDB:
 			# Salva o ID da ultima insercao
 			user_id = self.__get_id(c.execute("SELECT last_insert_rowid();").fetchall())
 
+			# Associa nova conta
+			c.execute(f"INSERT INTO contas VALUES(NULL, {user_id}, 0, 0, 1);")
+			acc_id = self.__get_id(c.execute("SELECT last_insert_rowid();").fetchall())
+#			acc_id = self.__cria_conta(user_id);
+
 			# Insere login, relacionando o ID do usuario
-			c.execute(f"INSERT INTO logins VALUES (NULL, '{user_id}', '{usuario}', '{senha}', 1);")
+			c.execute(f"INSERT INTO logins VALUES (NULL, '{user_id}', '{acc_id}', '{usuario}', '{senha}', 1);")
 
 			c.execute("COMMIT;")
 			self.conn.commit()
@@ -272,15 +279,13 @@ class ConexaoDB:
 	# Retorna ID do usuario caso login/senha estejam corretos
 	def valida_login(self, user, passw):
 		# TODO: SQL injection possivel aqui :^)
-		print(f"valida_login -> user: {user}, pass: {passw}")
+		print(f"ConexaoDB.valida_login -> user: {user}, pass: {passw}")
 
 		c = self.conn.execute(f"SELECT id_usuario_fk FROM logins WHERE username = '{user}' AND password = '{passw}';")
 		ids = c.fetchall()
 
 		if(len(ids) == 0):
 			return None
-
-		print(ids)
 
 		return int(ids[0][0])
 
@@ -289,7 +294,7 @@ class ConexaoDB:
 		c = self.conn.cursor()
 		try:
 			c.execute("BEGIN TRANSACTION;")
-			e.execute(f"UPDATE logins SET username='{username}', password='{password}' WHERE id={user_id};")
+			c.execute(f"UPDATE logins SET username='{username}', password='{password}' WHERE id={user_id};")
 			c.execute("COMMIT;")
 			return True
 
@@ -299,6 +304,60 @@ class ConexaoDB:
 			pass
 
 		return False
+
+	# TESTE: Cria conta para usuario 'user_id'
+	def __cria_conta(self, user_id):
+		c = self.conn.cursor()
+
+		try:
+			c.execute("BEGIN TRANSACTION;")
+			c.execute(f"INSERT INTO contas VALUES(NULL, {user_id}, 0, 0, 1);")
+			acc_id = self.__get_id(c.execute("SELECT last_insert_rowid();").fetchall())
+			c.execute("COMMIT;")
+			print(f"ConexaoDB.cria_conta() -> {acc_id}")
+			return acc_id
+
+		except Exception as e:
+			c.execute("ROLLBACK;")
+			print(f"ConexaoDB.cria_conta() -> ERRO: {e}")
+			pass
+
+		return None
+
+	# Cria nova transacao
+	# user_id -> usuario iniciador
+	# tipo_op -> tipo operacao, credito, debito
+	# conta_orig -> conta origem, 'None' para depositos
+	# conta_dest -> conta destino, 'None' para saques
+	# valor -> valor movimentado
+	def cria_tx(self, user_id, tipo_op, conta_orig, conta_dest, valor):
+		c = self.conn.cursor()
+
+		# Calcula saldo
+		try:
+			c.execute("SELECT balanco FROM contas WHERE id_usuario_fk = '{user_id}';")
+			rows = c.fetchall()
+
+			if(len(rows) == 0):
+				print("ID usuario nao possui conta!")
+				return None
+
+			saldo = rows[0]
+			print(saldo)
+		except Exception as e:
+			pass
+
+		try:
+			c.execute("BEGIN TRANSACTION;")
+			c.execute("COMMIT;")
+#			return tx_id
+
+		except Exception as e:
+			c.execute("ROLLBACK;")
+			print(f"ConexaoDB.cria_tx() -> ERRO: {e}")
+			pass
+
+		return None
 
 # === TESTE TESTE TESTE ===
 #banco = ConexaoDB("test.db")
